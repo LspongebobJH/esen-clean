@@ -1,0 +1,4 @@
+_target_: lion_pytorch.Lion
+_partial_: true
+lr: 2e-5
+weight_decay: 0.01

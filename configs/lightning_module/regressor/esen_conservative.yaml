@@ -1,0 +1,45 @@
+# the EsenConserRegressor is our own implementation
+_target_: pl_module.esen_regressor_conservative.EsenConserRegressor
+_recursive_: true
+
+regress_forces: true
+regress_stress: true
+forces_loss_type: "mae"
+stress_loss_type: "mae"
+forces_loss_coeff: 20.0
+stress_loss_coeff: 5.0
+
+backbone:
+  _target_: fairchem.core.models.esen.esen.eSEN_Backbone
+  max_num_elements: 100
+  sphere_channels: 128
+  lmax: 3
+  mmax: 2
+  grid_resolution: null
+  otf_graph: false
+  max_neighbors: 120
+  use_pbc: true
+  use_pbc_single: false
+  cutoff: 6.0
+  edge_channels: 128
+  distance_function: "gaussian"
+  num_distance_basis: 64
+  direct_forces: false
+  regress_forces: true
+  regress_stress: true
+  num_layers: 10
+  hidden_channels: 128
+  norm_type: "rms_norm_sh"
+  act_type: "gate"
+  mlp_type: "spectral"
+  use_envelope: true
+  activation_checkpointing: true # sometime OOM if set as false
+
+# The EnergyHead class is our own implementation
+energy_head:
+  _target_: pl_module.esen_regressor.EnergyHead
+  sphere_channels: 128
+  hidden_channels: 128
+  reduce: "mean"
+  loss_coeff: 20.0
+  loss_type: "mae"

@@ -1,0 +1,14 @@
+hydra:
+  run:
+    dir: ${oc.env:OUTPUT_DIR,outputs/singlerun/${now:%Y-%m-%d}/${now:%H-%M-%S}}
+
+auto_resume: False
+checkpoint_path: null
+
+defaults:
+  - trainer: default
+  - data_module: esen_omat
+  - lightning_module: esen_pl
+  - lightning_module/regressor: esen_conservative
+  - lightning_module/optimizer_partial: lion
+  - lightning_module/scheduler_partial: cosine_warmup

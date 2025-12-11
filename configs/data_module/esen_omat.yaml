@@ -1,0 +1,43 @@
+_target_: pl_datamodule.esen_datamodule.EsenDataModule
+_recursive_: true
+pin_memory: false
+
+num_workers:
+  train: 2
+  val: 2
+
+batch_size: # batch size on a single GPU
+  train: 2
+  val: 2
+
+otf_graph: false # keep the same as that in model
+data_seed: 42
+
+sampler_type: "max_atoms" # or balanced
+max_atoms: 200 # works for 80Gb H800/A100
+
+train_dataset:
+  _target_: fairchem.core.datasets.ase_datasets.AseDBDataset
+  config:
+    src: /data/tangyh/esen-clean/data/demo/data.aselmdb
+    a2g_args:
+      r_energy: true
+      r_forces: true
+      r_stress: true
+      r_edges: true
+      max_neigh: 120
+      radius: 6.0
+    keep_in_memory: true
+
+val_dataset:
+  _target_: fairchem.core.datasets.ase_datasets.AseDBDataset
+  config:
+    src: /data/tangyh/esen-clean/data/demo/data.aselmdb
+    a2g_args:
+      r_energy: true
+      r_forces: true
+      r_stress: true
+      r_edges: true
+      max_neigh: 120
+      radius: 6.0
+    keep_in_memory: true

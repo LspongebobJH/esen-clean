@@ -1,0 +1,40 @@
+_target_: pytorch_lightning.Trainer
+
+log_every_n_steps: 50
+accelerator: 'gpu'
+devices:
+  _target_: torch.cuda.device_count
+max_epochs: 1 # 1 epoch for conservative training
+num_nodes: 4 # we use 4 nodes for conservative training, 32 GPUs in total
+precision: '32' # 32 for conservative training; 16-mix for direct-force pretraining
+accumulate_grad_batches: 1 # grad accumulation
+gradient_clip_val: 100
+gradient_clip_algorithm: norm
+check_val_every_n_epoch: 1
+
+strategy:
+  _target_: pytorch_lightning.strategies.ddp.DDPStrategy
+  find_unused_parameters: true
+  static_graph: true
+  start_method: 'popen' # or spawn
+  process_group_backend: 'nccl'
+
+logger:
+  _target_: pytorch_lightning.loggers.WandbLogger
+  project: esen
+  name: null
+  job_type: train
+  settings:
+    _target_: wandb.Settings
+    start_method: fork
+    _save_requirements: False
+    mode: online
+
+callbacks:
+  - _target_: pytorch_lightning.callbacks.LearningRateMonitor
+    logging_interval: step
+    log_momentum: False
+  - _target_: pytorch_lightning.callbacks.TQDMProgressBar
+    refresh_rate: 50
+  - _target_: common.ema.EMACallback
+    decay: 0.999
