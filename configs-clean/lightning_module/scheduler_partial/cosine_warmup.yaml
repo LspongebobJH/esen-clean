@@ -1,0 +1,9 @@
+scheduler:
+  _target_: cosine_annealing_warmup.CosineAnnealingWarmupRestarts
+  _partial_: true
+  first_cycle_steps: 327959 # epochs * num_samples / bs
+  max_lr: 2e-5
+  min_lr: 4e-6
+  warmup_steps: 32795
+interval: step
+frequency: 1

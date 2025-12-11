@@ -7,8 +7,8 @@ num_workers:
   val: 2
 
 batch_size: # batch size on a single GPU
-  train: 2
-  val: 2
+  train: 300
+  val: 300
 
 otf_graph: false # keep the same as that in model
 data_seed: 42
@@ -19,7 +19,7 @@ max_atoms: 200 # works for 80Gb H800/A100
 train_dataset:
   _target_: fairchem.core.datasets.ase_datasets.AseDBDataset
   config:
-    src: /home/lijiahang/esen-clean/data/demo/data.aselmdb
+    src: /mnt/shared-storage-user/lijiahang/shiyan-OmniMat/mptrj-pbe-asedb/train/mptrj_train.db
     a2g_args:
       r_energy: true
       r_forces: true
@@ -32,7 +32,7 @@ train_dataset:
 val_dataset:
   _target_: fairchem.core.datasets.ase_datasets.AseDBDataset
   config:
-    src: /home/lijiahang/esen-clean/data/demo/data.aselmdb
+    src: /mnt/shared-storage-user/lijiahang/shiyan-OmniMat/mptrj-pbe-asedb/train/mptrj_train.db
     a2g_args:
       r_energy: true
       r_forces: true
@@ -41,3 +41,4 @@ val_dataset:
       max_neigh: 120
       radius: 6.0
     keep_in_memory: true
+

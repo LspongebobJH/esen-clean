@@ -24,6 +24,7 @@ from common.config import Config
 # test pl_datamodule
 from pl_datamodule.esen_datamodule import EsenDataModule
 from pl_module.esen_lightning_module import EsenLightningModule
+import wandb
 
 T = TypeVar("T")
 
@@ -141,7 +142,7 @@ def main(
     # print(f"dirpath: {dirpath}")
     # print(f"ckpt_path: {ckpt_path}")
     # exit()
-
+    wandb.init()
     if rank_zero_only.rank == 0 and isinstance(trainer.logger, pl.loggers.WandbLogger):
         # Log the config to wandb so that it shows up in the portal.
         trainer.logger.experiment.config.update(

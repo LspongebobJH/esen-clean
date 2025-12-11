@@ -1,0 +1,15 @@
+_target_: pl_module.esen_lightning_module.EsenLightningModule
+_recursive_: true
+
+# params for DeNS
+# It's our own implementation
+use_denoising_pos: false
+denoising_pos_params:
+  prob: 0.5
+  fixed_noise_std: true
+  std: 0.1
+  num_steps: 50
+  all_atoms: true
+  corrupt_ratio: 0.5
+
+pretrained_ckpt: null
