@@ -221,7 +221,7 @@ class EsenLightningModule(pl.LightningModule):
         step_type = "train" if train else "val"
         batch_size = len(batch["natoms"])
         self.log(
-            f"loss_{step_type}",
+            f"{step_type}/loss",
             loss,
             on_step=train,
             on_epoch=True,
@@ -231,7 +231,7 @@ class EsenLightningModule(pl.LightningModule):
         )
         for k, v in metrics.items():
             self.log(
-                f"{k}_{step_type}",
+                f"{step_type}/{k}",
                 v,
                 on_step=train,
                 on_epoch=True,

@@ -1,0 +1,52 @@
+_target_: pl_module.esen_regressor.EsenRegressor
+_recursive_: true
+
+backbone:
+  _target_: fairchem.core.models.esen.esen.eSEN_Backbone
+  max_num_elements: 100
+  sphere_channels: 128
+  lmax: 3 # 3 for 30M, 2 for 6.5M
+  mmax: 2
+  grid_resolution: null
+  otf_graph: false
+  max_neighbors: 120
+  use_pbc: true
+  use_pbc_single: false
+  cutoff: 6.0
+  edge_channels: 128 
+  distance_function: "gaussian" 
+  num_distance_basis: 64 # omat 64, mptraj 10
+  direct_forces: true # force&stress both
+  regress_forces: true 
+  regress_stress: false 
+  num_layers: 10 # 10 for 30M, 4 for 6.5M
+  hidden_channels: 128
+  norm_type: "rms_norm_sh"
+  act_type: "gate"
+  mlp_type: "spectral"
+  use_envelope: true
+  activation_checkpointing: false
+
+energy_head:
+  _target_: pl_module.esen_regressor.EnergyHead
+  sphere_channels: 128
+  hidden_channels: 128
+  reduce: "mean"
+  loss_coeff: 1.0
+  loss_type: "mae"
+
+forces_head:
+  _target_: pl_module.esen_regressor.ForcesHead
+  sphere_channels: 128
+  train_on_free_atoms: false
+  loss_coeff: 1.0
+  loss_type: "mae"
+
+# the StressHead is our own implementation
+stress_head:
+  _target_: pl_module.esen_regressor.CGBasisStressHead
+  sphere_channels: 128
+  hidden_channels: 128
+  reduce: "mean"
+  loss_coeff: 1.0
+  loss_type: "mae"

@@ -24,7 +24,6 @@ from common.config import Config
 # test pl_datamodule
 from pl_datamodule.esen_datamodule import EsenDataModule
 from pl_module.esen_lightning_module import EsenLightningModule
-import wandb
 
 T = TypeVar("T")
 
@@ -97,6 +96,8 @@ def main(
     if you don't care about saving and loading checkpoints and want to use a config that contains things like `torch.nn.Module`s already instantiated, set this to False.
     """
     print(f"config: {config}")
+    os.makedirs(config.trainer.logger.save_dir, exist_ok=True)
+    
     if config.checkpoint_path and config.auto_resume:
         raise ValueError(
             f"Ambiguous config: you set both a checkpoint path {config.checkpoint_path} and `auto_resume` which means automatically select a checkpoint path to resume from."
@@ -142,13 +143,15 @@ def main(
     # print(f"dirpath: {dirpath}")
     # print(f"ckpt_path: {ckpt_path}")
     # exit()
-    wandb.init()
     if rank_zero_only.rank == 0 and isinstance(trainer.logger, pl.loggers.WandbLogger):
         # Log the config to wandb so that it shows up in the portal.
         trainer.logger.experiment.config.update(
             {**OmegaConf.to_container(config, resolve=True)},
             allow_val_change=True,
         )
+        
+        
+
     
     trainer.fit(
         pl_module,
