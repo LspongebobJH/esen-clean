@@ -59,4 +59,4 @@ torchrun \
     data_module.sampler_type=${sampler_type} \
     trainer.logger.name=${name} \
     trainer.logger.save_dir=/mnt/shared-storage-user/lijiahang/wandb/esen-clean/${name} \
-    lightning_module.pretrained_ckpt='/mnt/shared-storage-user/lijiahang/wandb/esen-clean/esen_20251212_145457/esen/s8jkoo36/checkpoints/epoch=59-step=295680.ckpt'
+    lightning_module.pretrained_ckpt="/mnt/shared-storage-user/lijiahang/wandb/esen-clean/esen_20251212_145457/esen/s8jkoo36/checkpoints/epoch\=59-step\=295680.ckpt"
