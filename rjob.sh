@@ -1,5 +1,5 @@
 #!/bin/bash
-USER_NAME="lijiahang"
+export USER_NAME="lijiahang"
 chmod +x /mnt/shared-storage-user/$(USER_NAME)/jobs/esen-clean/run_2node16gpu.sh
 rjob submit \
 --enable-sshd \
