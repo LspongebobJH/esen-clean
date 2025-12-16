@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -ex
-export USER_NAME="${USER_NAME:-$(whoami)}"
+export USER_NAME="lijiahang"
 
 # --------------- Paths & Conda ---------------
 cd /mnt/shared-storage-user/${USER_NAME}/jobs/esen-clean/
