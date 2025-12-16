@@ -13,3 +13,5 @@ denoising_pos_params:
   corrupt_ratio: 0.5
 
 pretrained_ckpt: null
+load_energy_head: false # default
+# load_energy_head: true # jiahang: debug

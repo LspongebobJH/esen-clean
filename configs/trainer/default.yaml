@@ -22,10 +22,12 @@ strategy:
 logger:
   _target_: pytorch_lightning.loggers.WandbLogger
   project: esen
-  name: esen_mptrj_test
-  save_dir: /mnt/shared-storage-user/lijiahang/wandb/esen-clean/esen_mptrj_test
+  name: esen_test
+  save_dir: /mnt/shared-storage-user/lijiahang/wandb/esen-clean/esen_test_${now:%Y%m%d_%H%M%S}
   job_type: train
   mode: offline
+  log_model: True
+  save_top_k: 1
   settings:
     _target_: wandb.Settings
     start_method: fork
