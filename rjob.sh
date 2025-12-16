@@ -1,6 +1,9 @@
 #!/bin/bash
 export USER_NAME="lijiahang"
-chmod +x /mnt/shared-storage-user/${USER_NAME}/jobs/esen-clean/run_2node16gpu.sh
+export JOB_DIR="/mnt/shared-storage-user/${USER_NAME}/jobs/esen-clean/"
+export NODES="node/gpu-l-lg-cmc-h-h200-0230.host.h.pjlab.org.cn,node/gpu-l-lg-cmc-h-h200-0283.host.h.pjlab.org.cn"
+
+chmod +x ${JOB_DIR}/run_2node16gpu.sh
 rjob submit \
 --enable-sshd \
 --name=esen-cons-balanced \
@@ -16,5 +19,5 @@ rjob submit \
 --preemptible=no \
 -e DISTRIBUTED_JOB=true \
 --custom-resources rdma/mlnx_shared=8 \
---positive-tags node/gpu-l-lg-cmc-h-h200-0230.host.h.pjlab.org.cn,node/gpu-l-lg-cmc-h-h200-0283.host.h.pjlab.org.cn \
--- bash -exc /mnt/shared-storage-user/${USER_NAME}/jobs/esen-clean/run_2node16gpu.sh
+--positive-tags ${NODES} \
+-- bash -exc ${JOB_DIR}/run_2node16gpu.sh

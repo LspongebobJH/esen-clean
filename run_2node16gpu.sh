@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
 set -ex
 export USER_NAME="lijiahang"
+export ENV_NAME="esen"
+export PROJECT_NAME="esen"
+export JOB_DIR="/mnt/shared-storage-user/${USER_NAME}/jobs/esen-clean/"
 
 # --------------- Paths & Conda ---------------
-cd /mnt/shared-storage-user/${USER_NAME}/jobs/esen-clean/
+cd ${JOB_DIR}
 export PATH="/mnt/shared-storage-user/${USER_NAME}/miniconda3/bin:$PATH"
 . /mnt/shared-storage-user/${USER_NAME}/miniconda3/etc/profile.d/conda.sh
-conda activate omnimat 
+conda activate ${ENV_NAME}
 
 # --------------- W&B: offline to local disk ---------------
 export WANDB_MODE=offline
-export WANDB_PROJECT="esen"
+export WANDB_PROJECT=${PROJECT_NAME}
 export WANDB_DIR="/mnt/shared-storage-user/${USER_NAME}/wandb/${JOB_ID:-local_job}/node${NODE_RANK:-0}"
 export WANDB_RUN_GROUP="${JOB_ID:-mp_group}"
 
@@ -23,8 +26,9 @@ export TORCH_NCCL_ASYNC_ERROR_HANDLING=1
 export NCCL_DEBUG=WARN
 export NCCL_SOCKET_IFNAME="${NCCL_SOCKET_IFNAME:-bond0}"
 
-identifier="esen_${ts}"
+identifier="${PROJECT_NAME}_${ts}"
 
+# --------------- model argument setting ---------------
 # conservative
 # sampler_type="max_atoms" # test 
 sampler_type="balanced" # after comparison, same as e2former new_balanced, thus use esen's balanced
