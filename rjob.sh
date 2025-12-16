@@ -14,10 +14,13 @@ rjob submit \
 --private-machine=group \
 --mount=gpfs://gpfs1/${USER_NAME}:/mnt/shared-storage-user/${USER_NAME} \
 --image=registry.h.pjlab.org.cn/ailab-omnimat/chenshuizhou-workspace:20250917184047 \
--P 2 \
+-P 1 \
 --host-network=true \
 --preemptible=no \
 -e DISTRIBUTED_JOB=true \
 --custom-resources rdma/mlnx_shared=8 \
 --positive-tags ${NODES} \
 -- bash -exc ${JOB_DIR}/run_2node16gpu.sh
+
+# debug
+# -P 2
