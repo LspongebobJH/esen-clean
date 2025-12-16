@@ -3,7 +3,7 @@ set -ex
 export USER_NAME=$(whoami)
 
 # --------------- Paths & Conda ---------------
-cd /mnt/shared-storage-user/${USER_NAME}/jobs/OmniMat/E2Former
+cd /mnt/shared-storage-user/${USER_NAME}/jobs/esen-clean/
 export PATH="/mnt/shared-storage-user/${USER_NAME}/miniconda3/bin:$PATH"
 . /mnt/shared-storage-user/${USER_NAME}/miniconda3/etc/profile.d/conda.sh
 conda activate omnimat 
