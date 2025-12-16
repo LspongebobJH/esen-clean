@@ -1,7 +1,7 @@
 #!/bin/bash
 export USER_NAME="lijiahang"
 export JOB_DIR="/mnt/shared-storage-user/${USER_NAME}/jobs/esen-clean/"
-export NODES="node/gpu-l-lg-cmc-h-h200-0230.host.h.pjlab.org.cn,node/gpu-l-lg-cmc-h-h200-0283.host.h.pjlab.org.cn"
+export NODES="node/gpu-lg-cmc-h-h200-0508.host.h.pjlab.org.cn"
 
 chmod +x ${JOB_DIR}/run_2node16gpu.sh
 rjob submit \

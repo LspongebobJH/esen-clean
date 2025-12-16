@@ -1,6 +1,7 @@
 #!/bin/bash
 export USER_NAME="lijiahang"
 export JOB_DIR="/mnt/shared-storage-user/${USER_NAME}/jobs/esen-finetune/"
+export NODES="node/gpu-l-lg-cmc-h-h200-0230.host.h.pjlab.org.cn,node/gpu-l-lg-cmc-h-h200-0283.host.h.pjlab.org.cn"
 
 chmod +x ${JOB_DIR}/run_2node16gpu_ft.sh
 rjob submit \
@@ -18,4 +19,5 @@ rjob submit \
 --preemptible=no \
 -e DISTRIBUTED_JOB=true \
 --custom-resources rdma/mlnx_shared=8 \
+--positive-tags ${NODES} \
 -- bash -exc ${JOB_DIR}/run_2node16gpu_ft.sh

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# temporary for 1 node 8 gpu usage
+
 set -ex
 export USER_NAME="lijiahang"
 export ENV_NAME="esen"
@@ -17,9 +20,9 @@ export WANDB_PROJECT=${PROJECT_NAME}
 export WANDB_DIR="/mnt/shared-storage-user/${USER_NAME}/wandb/${JOB_ID:-local_job}/node${NODE_RANK:-0}"
 export WANDB_RUN_GROUP="${JOB_ID:-mp_group}"
 
-NNODES="${NODE_COUNT:-2}"
+NNODES="${NODE_COUNT:-1}"
 NODE_RANK="${NODE_RANK:-0}"
-NPROC_PER_NODE="${PROC_PER_NODE:-16}"
+NPROC_PER_NODE="${PROC_PER_NODE:-8}"
 MASTER_ADDR="${MASTER_ADDR:-127.0.0.1}"
 MASTER_PORT="${MASTER_PORT:-29500}"
 export TORCH_NCCL_ASYNC_ERROR_HANDLING=1
@@ -33,7 +36,7 @@ identifier="${PROJECT_NAME}_${ts}"
 # sampler_type="max_atoms" # test 
 sampler_type="balanced" # after comparison, same as e2former new_balanced, thus use esen's balanced
 precision=32 # not work when max_atoms
-batch_size=16 # not work when max_atoms
+batch_size=32 # not work when max_atoms
 regressor="esen_conservative"
 
 ts="$(date +%Y%m%d_%H%M%S)"
