@@ -49,7 +49,7 @@ torchrun \
     --rdzv_endpoint="${MASTER_ADDR}:${MASTER_PORT}" \
     --rdzv_id="${JOB_ID:-mptrj}" \
     run.py \
-    trainer.num_nodes=2 \
+    trainer.num_nodes=1 \
     trainer.precision=${precision} \
     trainer.max_epochs=60 \
     lightning_module/regressor=${regressor} \
