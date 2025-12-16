@@ -33,7 +33,7 @@ identifier="${PROJECT_NAME}_${ts}"
 # sampler_type="max_atoms" # test 
 sampler_type="balanced" # after comparison, same as e2former new_balanced, thus use esen's balanced
 precision=32 # not work when max_atoms
-batch_size=32 # not work when max_atoms
+batch_size=16 # not work when max_atoms
 regressor="esen_conservative"
 
 ts="$(date +%Y%m%d_%H%M%S)"
